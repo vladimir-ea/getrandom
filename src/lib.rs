@@ -173,6 +173,7 @@ mod util;
     target_os = "haiku",
     target_os = "illumos",
     target_os = "ios",
+    target_os = "watchos",
     target_os = "linux",
     target_os = "macos",
     target_os = "netbsd",
@@ -211,6 +212,8 @@ cfg_if! {
         mod use_file;
         #[path = "solaris_illumos.rs"] mod imp;
     } else if #[cfg(target_os = "ios")] {
+        #[path = "ios.rs"] mod imp;
+    } else if #[cfg(target_os = "watchos")] {
         #[path = "ios.rs"] mod imp;
     } else if #[cfg(target_os = "linux")] {
         mod util_libc;
