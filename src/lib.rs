@@ -16,6 +16,7 @@
 //! | Windows           | `*‑windows‑*`      | [`BCryptGenRandom`][3] |
 //! | macOS             | `*‑apple‑darwin`   | [`getentropy()`][19] if available, otherwise [`/dev/random`][20] (identical to `/dev/urandom`)
 //! | iOS               | `*‑apple‑ios`      | [`SecRandomCopyBytes`][4]
+//! | watchOS           | `*-apple-watchos`  | [`SecRandomCopyBytes`][4]
 //! | FreeBSD           | `*‑freebsd`        | [`getrandom()`][21] if available, otherwise [`kern.arandom`][5]
 //! | OpenBSD           | `*‑openbsd`        | [`getentropy`][6]
 //! | NetBSD            | `*‑netbsd`         | [`kern.arandom`][7]
@@ -189,7 +190,7 @@ cfg_if! {
         #[path = "dragonfly.rs"] mod imp;
     } else if #[cfg(target_os = "fuchsia")] {
         #[path = "fuchsia.rs"] mod imp;
-    } else if #[cfg(target_os = "ios")] {
+    } else if #[cfg(any(target_os = "ios", target_os = "watchos"))] {
         #[path = "ios.rs"] mod imp;
     } else if #[cfg(target_os = "macos")] {
         mod util_libc;
